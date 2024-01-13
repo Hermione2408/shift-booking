@@ -26,8 +26,9 @@ export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
     initialState: {
       items: [],
       bookedShifts: [],
+      availableShifts:[],
       loading: false,
-      error: null
+      error: null,
     },
     reducers: {},
     extraReducers: {
@@ -38,6 +39,7 @@ export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
           state.loading = false;
           state.items = action.payload;
           state.bookedShifts = action.payload.filter(shift => shift.booked);
+          state.availableShifts = action.payload.filter(shift => !shift.booked);
         },
       [fetchShifts.rejected]:(state,action)=>{
         state.loading=false;
