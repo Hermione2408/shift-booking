@@ -3,7 +3,7 @@ import s from "./row.module.css";
 import { bookShift, cancelShift,fetchShifts } from "../../../store/shiftSlice";
 import { useDispatch,useSelector } from "react-redux";
 import {Snackbar,Alert,CircularProgress} from "@mui/material"
-const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,showCity=false }) => {
+const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCity=false }) => {
     const [bookingInProgress,setBookingInProgress]=useState(false)
     const [cancelInProgress,setCancelInProgress]=useState(false)
     const [showSnackbar,setShowSnackBar] = useState({show:false,severity:"info",message:"",autoHideDuration:3000})
