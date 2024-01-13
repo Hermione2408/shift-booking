@@ -50,8 +50,6 @@ const AvailableShifts=()=>{
         }
     },[allShifts])
     if (error) return <div>Error: {error}</div>;
-    console.log(allShifts)
-    console.log(bookedShifts) 
     let dataToRender;  
     if(groupedData && selectedCity){
         dataToRender = categorizedShifts(groupedData[selectedCity])

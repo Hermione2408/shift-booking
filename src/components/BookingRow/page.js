@@ -13,13 +13,10 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
 
     const handleCancel = async() => {
         setCancelInProgress(true)
-        console.log(`Cancelling booking with ID: ${data.id}`);
         dispatch(cancelShift(data.id))
         .then((res)=>{
-            console.log(res,"CANCEL")
             setShowSnackBar({show:true,severity:"success",message:"Booking cancelled successfully"})
         }).catch((err)=>{
-            console.log(err)
             setShowSnackBar({show:true,severity:"error",message:"Error occured, try again later"})
         }).finally(()=>{
             setCancelInProgress(false)
@@ -28,7 +25,6 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
         dispatch(fetchShifts())
     };
     const handleBook =async()=> {
-        console.log(`booking booking with ID: ${data.id}`);
         setBookingInProgress(true)
         dispatch(bookShift(data.id))
         .then((res)=>{
@@ -40,7 +36,6 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
             setBookingInProgress(false)
         })
     }
-    console.log(isPast,"Iam passed",data)
 
     return (
         <>
