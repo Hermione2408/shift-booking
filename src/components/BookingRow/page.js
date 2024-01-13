@@ -9,7 +9,6 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted }) => {
     const [cancelInProgress,setCancelInProgress]=useState(false)
 
     const dispatch=useDispatch()
-    const loading = useSelector(state => state.shifts.bookingloading);
     // Convert timestamps to time strings
     const startTime = new Date(data.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const endTime = new Date(data.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

@@ -65,32 +65,6 @@ export const fetchShift = createAsyncThunk('shifts/fetchShift', async (id) => {
           state.loading = false;
           state.error = action.error.message;
         },
-      
-        // Handling bookShift
-        [bookShift.pending]: (state) => {
-          state.bookingloading = true;
-        },
-        [bookShift.fulfilled]: (state) => {
-          state.bookingloading = false;
-        },
-        [bookShift.rejected]: (state, action) => {
-          state.bookingloading = false;
-          state.error = action.error.message;
-        },
-      
-        // Handling cancelShift
-        [cancelShift.pending]: (state) => {
-          state.loading = true;
-        },
-        [cancelShift.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.items = state.items.map(shift => 
-            shift.id === action.payload.id ? action.payload : shift);
-        },
-        [cancelShift.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.error.message;
-        },
       }
       
   });
