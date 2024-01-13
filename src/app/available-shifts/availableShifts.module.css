@@ -1,0 +1,22 @@
+.cityContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.city, .activeCity {
+    text-decoration: none;
+    padding: 8px 16px; 
+    font-size: 24px; 
+    color: #CBD2E1; 
+    border-radius: 4px; 
+    transition: color 0.3s; 
+    cursor: pointer;
+  }
+  
+  
+  .activeCity {
+    color: #004fb4; 
+    font-weight: bold;
+  }
+  

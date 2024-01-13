@@ -1,0 +1,31 @@
+.rowContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px 0;
+}
+
+.timeRange {
+    font-size: 16px;
+/* Continue the styling based on your needs */
+}
+
+.bookedLabel {
+    color: #55cb82;
+    border-radius: 5px;
+    border: 1px solid #55cb82;
+    border-radius: 20px;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+.cancelButton {
+    border: 1px solid #e2006A;
+    color: #e2006A;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
