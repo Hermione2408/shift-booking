@@ -52,9 +52,9 @@ const AvailableShifts=()=>{
             setSelectedCity(cities[0])
         }
     },[allShifts])
-    if (loading) {
-        return <div className={s.loader}><CircularProgress color="success" size={40} /></div>;
-    }
+    // if (loading) {
+    //     return <div className={s.loader}><CircularProgress color="success" size={40} /></div>;
+    // }
     if (error) return <div>Error: {error}</div>;
     let dataToRender;  
     if(groupedData && selectedCity){

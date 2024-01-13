@@ -6,7 +6,7 @@ import {Snackbar,Alert,CircularProgress} from "@mui/material"
 const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCity=false }) => {
     const [bookingInProgress,setBookingInProgress]=useState(false)
     const [cancelInProgress,setCancelInProgress]=useState(false)
-    const [showSnackbar,setShowSnackBar] = useState({show:false,severity:"info",message:"",autoHideDuration:3000})
+    const [showSnackbar,setShowSnackBar] = useState({show:false,severity:"info",message:"",autoHideDuration:2000})
     const dispatch=useDispatch()
     const startTime = new Date(data.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const endTime = new Date(data.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -15,9 +15,9 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
         setCancelInProgress(true)
         dispatch(cancelShift(data.id))
         .then((res)=>{
-            setShowSnackBar({show:true,severity:"success",message:"Booking cancelled successfully"})
+            setShowSnackBar({...showSnackbar,show:true,severity:"success",message:"Booking cancelled successfully"})
         }).catch((err)=>{
-            setShowSnackBar({show:true,severity:"error",message:"Error occured, try again later"})
+            setShowSnackBar({...showSnackbar,show:true,severity:"error",message:"Error occured, try again later"})
         }).finally(()=>{
             setCancelInProgress(false)
 
@@ -69,11 +69,11 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
         </div>
         <Snackbar
             open={showSnackbar.show}
-            autoHideDuration={showSnackbar.autoHideDuration}
+            autoHideDuration={showSnackbar.autoHideDuration || 2000}
             onClose={()=> {
                 setShowSnackBar({show:false})
             }}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
             <Alert severity={showSnackbar.severity}  onClose={()=> {
                 setShowSnackBar({show:false})
