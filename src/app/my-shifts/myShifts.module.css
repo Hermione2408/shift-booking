@@ -14,9 +14,15 @@
     color: #ABBED6
   }
   .loader{
+    
     height: 100vh;
     width: 80vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+  }
+
+  .link{
+    color: #3366CC;
   }

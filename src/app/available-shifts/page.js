@@ -5,6 +5,9 @@ import { fetchShifts } from '../../../store/shiftSlice';
 import s from './availableShifts.module.css'; 
 import { categorizedShifts } from '@/utils/functions';
 import BookingRow from '@/components/BookingRow/page';
+import { CircularProgress } from '@mui/material';
+import ErrorImage from '@/assets/img/error-svgrepo-com.svg'
+import Image from 'next/image';
 const AvailableShifts=()=>{
     const dispatch = useDispatch();
     const allShifts = useSelector(state => state.shifts.items);
@@ -49,6 +52,9 @@ const AvailableShifts=()=>{
             setSelectedCity(cities[0])
         }
     },[allShifts])
+    if (loading) {
+        return <div className={s.loader}><CircularProgress color="success" size={40} /></div>;
+    }
     if (error) return <div>Error: {error}</div>;
     let dataToRender;  
     if(groupedData && selectedCity){
@@ -67,7 +73,7 @@ const AvailableShifts=()=>{
            </div>
            <div>
             {
-                dataToRender && Object.keys(dataToRender).map((category,i)=>{
+                dataToRender && Object.keys(dataToRender).length>0 ? Object.keys(dataToRender).map((category,i)=>{
                     return(
                         <div>
                         {dataToRender[category] && dataToRender[category].length >0 &&<div className={s.dayLabel} key={category}>{category}</div>}
@@ -78,7 +84,12 @@ const AvailableShifts=()=>{
                         }
                         </div>
                     )
-                })
+                }):(
+                    <div className={s.loader}>
+                        <Image src={ErrorImage} height={112} width={112} />
+                        NO shifts available
+                        </div>
+                )
             }
            </div>
         </div>

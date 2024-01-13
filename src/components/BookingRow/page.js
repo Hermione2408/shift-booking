@@ -28,10 +28,11 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
         setBookingInProgress(true)
         dispatch(bookShift(data.id))
         .then((res)=>{
-            setShowSnackBar({show:true,severity:"success",message:"Booking done successfully"})
+            console.log(res,"CANCEL")
+            setShowSnackBar({...showSnackbar,show:true,severity:"success",message:"Booking done successfully"})
             dispatch(fetchShifts())
         }).catch((err)=>{
-            setShowSnackBar({show:true,severity:"error",message:"Error occured, try again later"})
+            setShowSnackBar({...showSnackbar,show:true,severity:"error",message:"Error occured, try again later"})
         }).finally(()=>{
             setBookingInProgress(false)
         })

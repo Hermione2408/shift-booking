@@ -36,6 +36,13 @@ export const categorizedShifts = (data) => {
             categories[dateLabel].push(shiftWithStatus);
         }
     });
+    const nonEmptyCategories = Object.keys(categories)
+    .filter(category => categories[category].length > 0)
+    .reduce((result, category) => {
+        result[category] = categories[category];
+        return result;
+    }, {});
 
-    return categories;
+
+    return nonEmptyCategories;
 };

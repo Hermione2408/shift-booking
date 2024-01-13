@@ -26,3 +26,12 @@
     padding: 16px 8px;
   }
   
+  .loader{
+    height: 100vh;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+  }
