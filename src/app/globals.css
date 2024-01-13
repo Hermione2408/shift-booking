@@ -27,4 +27,5 @@ body{
 .container{
   overflow: scroll;
   background-color: white;
+  border: 1px solid grey;
 }

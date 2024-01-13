@@ -3,8 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border: 1px solid #ccc;
-    margin: 5px 0;
+    border-bottom: 1px solid #ccc;
 }
 
 .timeRange {
@@ -17,7 +16,7 @@
     border-radius: 5px;
     border: 1px solid #55cb82;
     border-radius: 20px;
-    padding: 8px 20px;
+    padding: 5px 10px;
     cursor: pointer;
     height: 42px;
     width: 80px
@@ -31,3 +30,17 @@
     cursor: pointer;
 }
 
+.infotext{
+    margin-right: 16px;
+}
+
+.overlap{
+    color: #e2006A
+}
+
+.booked{
+    color: #4f6c92;
+}
+.disabledBtn{
+    opacity: 0.5;
+}

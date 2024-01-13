@@ -14,10 +14,27 @@ const AvailableShifts=()=>{
     const [groupedData,setGroupedData] = useState({})
     const [cities,setCitiesData] = useState('')
     const [selectedCity,setSelectedCity] = useState("")
+
+
+    const checkOverLapping = (booking) => {
+        for (let shift of bookedShifts) {
+            if (booking.startTime < shift.endTime && booking.endTime > shift.startTime) {
+                return true;
+            }
+        }
+        return false;
+    };
+    const checkIfStarted = (booking) => {
+        const currentTime = Date.now(); // Gets the current time in milliseconds since the Unix Epoch
+        return booking.startTime <= currentTime;
+    };
+    
+    
+
     useEffect(() => {
         dispatch(fetchShifts());
     }, [dispatch]);
-
+    
     useEffect(()=>{
         if(allShifts .length >0){
             const groupByCity = allShifts.reduce((group, item) => {
@@ -54,14 +71,12 @@ const AvailableShifts=()=>{
            <div>
             {
                 dataToRender && Object.keys(dataToRender).map((category,i)=>{
-                    console.log(category)
                     return(
                         <div>
-                            asbdsb
-                        <div key={category}>{category}</div>
+                        <div className={s.dayLabel} key={category}>{category}</div>
                         {
                             dataToRender[category] && dataToRender[category].length >0 && dataToRender[category].map((booking)=>{
-                                return(<BookingRow data={booking} />)
+                                return(<BookingRow data={booking} showBookedText={true} isOverLapping={checkOverLapping(booking)} isStarted={checkIfStarted(booking)} />)
                             })
                         }
                         </div>

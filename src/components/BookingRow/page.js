@@ -3,7 +3,8 @@ import s from "./row.module.css";
 import { bookShift, cancelShift } from "../../../store/shiftSlice";
 import { useDispatch,useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
-const BookingRow = ({ data }) => {
+
+const BookingRow = ({ data,showBookedText,isOverLapping,isStarted }) => {
     const [bookingInProgress,setBookingInProgress]=useState(false)
     const dispatch=useDispatch()
     const loading = useSelector(state => state.shifts.bookingloading);
@@ -25,12 +26,17 @@ const BookingRow = ({ data }) => {
             setBookingInProgress(false)
         dispatch(fetchShifts())
     }
+    console.log(isOverLapping,"SSSS")
+
 
     return (
         <div className={s.rowContainer}>
-            <span className={s.timeRange}>{`${startTime} - ${endTime}`}</span>
-            {(data.booked==false)? <button className={s.bookedLabel} onClick={handleBook}>{bookingInProgress?<CircularProgress color="success" size={20} />:"Book"}</button>: <button className={s.cancelButton} onClick={handleCancel}>Cancel</button>}
-    
+            <span className={s.timeRange}> {isOverLapping}{`${startTime} - ${endTime}`}</span>
+            <div>
+             {showBookedText && data.booked && <span className={`${s.infotext} ${s.booked}`}>Booked</span>}
+             {!data.booked && isOverLapping && <span className={`${s.infotext} ${s.overlap}`}>Overlapping</span>}
+             {(data.booked==false)? <button className={s.bookedLabel} onClick={handleBook}>{bookingInProgress?<CircularProgress color="success" size={20} />:"Book"}</button>: <button className={s.cancelButton} onClick={handleCancel}>Cancel</button>}
+            </div>
         </div>
     );
 };
