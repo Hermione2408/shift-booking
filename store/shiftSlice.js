@@ -25,10 +25,26 @@ export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
     name: 'shifts',
     initialState: {
       items: [],
-      bookedShifts: [],
+      bookedShifts: [   { id: "1", booked: true, area: "Helsinki", startTime: 1705116600000, endTime: 1705127400000 },
+      { id: "2", booked: true, area: "Tampere", startTime: 1705120200000, endTime: 1705127400000 },
+      { id: "3", booked: true, area: "Turku", startTime: 1705123800000, endTime: 1705131000000 },
+      { id: "4", booked: true, area: "Helsinki", startTime: 1705134600000, endTime: 1705143600000 },
+      { id: "5", booked: true, area: "Turku", startTime: 1705147200000, endTime: 1705156200000 },
+      { id: "6", booked: true, area: "Tampere", startTime: 1705159800000, endTime: 1705168800000 },
+      { id: "7", booked: true, area: "Helsinki", startTime: 1705172400000, endTime: 1705181400000 },
+      { id: "8", booked: true, area: "Turku", startTime: 1705185000000, endTime: 1705194000000 },
+      { id: "9", booked: true, area: "Tampere", startTime: 1705197600000, endTime: 1705206600000 },
+      { id: "10", booked: true, area: "Helsinki", startTime: 1705210200000, endTime: 1705219200000 },
+      { id: "11", booked: false, area: "Espoo", startTime: 1705222800000, endTime: 1705231800000 },
+      { id: "12", booked: true, area: "Vantaa", startTime: 1705235400000, endTime: 1705244400000 },
+      { id: "13", booked: false, area: "Oulu", startTime: 1705248000000, endTime: 1705257000000 },
+      { id: "14", booked: true, area: "Lahti", startTime: 1705260600000, endTime: 1705269600000 },
+      { id: "15", booked: false, area: "Porvoo", startTime: 1705273200000, endTime: 1705282200000 },
+      { id: "16", booked: true, area: "Jyväskylä", startTime: 1705285800000, endTime: 1705294800000 }],
       availableShifts:[],
       loading: false,
       error: null,
+      bookingloading:false
     },
     reducers: {},
     extraReducers: {
@@ -38,7 +54,7 @@ export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
         [fetchShifts.fulfilled]: (state, action) => {
           state.loading = false;
           state.items = action.payload;
-          state.bookedShifts = action.payload.filter(shift => shift.booked);
+          // state.bookedShifts = action.payload.filter(shift => shift.booked);
           state.availableShifts = action.payload.filter(shift => !shift.booked);
         },
       [fetchShifts.rejected]:(state,action)=>{
@@ -60,15 +76,13 @@ export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
       
         // Handling bookShift
         [bookShift.pending]: (state) => {
-          state.loading = true;
+          state.bookingloading = true;
         },
-        [bookShift.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.items = state.items.map(shift => 
-            shift.id === action.payload.id ? action.payload : shift);
+        [bookShift.fulfilled]: (state) => {
+          state.bookingloading = false;
         },
         [bookShift.rejected]: (state, action) => {
-          state.loading = false;
+          state.bookingloading = false;
           state.error = action.error.message;
         },
       
