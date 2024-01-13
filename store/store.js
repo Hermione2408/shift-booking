@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { shiftSlice } from "./shiftSlice";
+import shiftSlice  from "./shiftSlice";
 
 const store= configureStore({
     reducer: {
