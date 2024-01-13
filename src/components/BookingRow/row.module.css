@@ -58,3 +58,7 @@
 .pastShift{
     color:lightgrey
 }
+.sidePadding{
+    padding-right: 15px;
+    padding-left: 15px;
+}

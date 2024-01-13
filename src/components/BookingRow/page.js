@@ -40,11 +40,11 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast,showCit
     return (
         <>
         <div className={`${s.rowContainer} ${isPast ? s.pastShift : ''}`}>
-            <div className={s.timeAndCityContainer}>
+            <div className={`${s.sidePadding} ${s.timeAndCityContainer}`}>
                 <span className={s.timeRange}> {isOverLapping}{`${startTime} - ${endTime}`}</span>
                 {showCity &&<span className={s.city}>{data.area}</span>}
             </div>
-            <div>
+            <div className={s.sidePadding}>
              {showBookedText && data.booked && <span className={`${s.infotext} ${s.booked}`}>Booked</span>}
              {!data.booked && isOverLapping && <span className={`${s.infotext} ${s.overlap}`}>Overlapping</span>}
              {data.booked === false ? (
