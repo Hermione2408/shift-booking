@@ -73,7 +73,7 @@ const AvailableShifts=()=>{
                 dataToRender && Object.keys(dataToRender).map((category,i)=>{
                     return(
                         <div>
-                        <div className={s.dayLabel} key={category}>{category}</div>
+                        {dataToRender[category] && dataToRender[category].length >0 &&<div className={s.dayLabel} key={category}>{category}</div>}
                         {
                             dataToRender[category] && dataToRender[category].length >0 && dataToRender[category].map((booking)=>{
                                 return(<BookingRow data={booking} showBookedText={true} isOverLapping={checkOverLapping(booking)} isStarted={checkIfStarted(booking)} />)
