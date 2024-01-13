@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  padding: 16px 8px;
+  border-bottom: 2px solid #CBD2E1; 
+}
+
+.nav {
+  display: flex;
+  gap: 16px; 
+}
+
+.link, .activeLink {
+  text-decoration: none;
+  padding: 8px 16px; 
+  font-size: 24px; 
+  color: #CBD2E1; 
+  border-radius: 4px; 
+  transition: color 0.3s; 
+}
+
+
+.activeLink {
+  color: #004fb4; 
+  font-weight: bold;
+}
