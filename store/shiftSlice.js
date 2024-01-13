@@ -1,22 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 
-const fetchShifts = createAsyncThunk('shifts/fetchShifts', async () => {
+export const fetchShifts = createAsyncThunk('shifts/fetchShifts', async () => {
     const response = await fetch('http://127.0.0.1:8080/shifts');
     return response.json();
   });
   
-  const fetchShift = createAsyncThunk('shifts/fetchShift', async (id) => {
+export const fetchShift = createAsyncThunk('shifts/fetchShift', async (id) => {
     const response = await fetch(`http://127.0.0.1:8080/shifts/${id}`);
     return response.json();
   });
   
-  const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
+export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
     const response = await fetch(`http://127.0.0.1:8080/shifts/${id}/book`, { method: 'POST' });
     return response.json();
   });
   
-  const cancelShift = createAsyncThunk('shifts/cancelShift', async (id) => {
+ export const cancelShift = createAsyncThunk('shifts/cancelShift', async (id) => {
     const response = await fetch(`http://127.0.0.1:8080/shifts/${id}/cancel`, { method: 'POST' });
     return response.json();
   });
@@ -25,6 +25,7 @@ const fetchShifts = createAsyncThunk('shifts/fetchShifts', async () => {
     name: 'shifts',
     initialState: {
       items: [],
+      bookedShifts: [],
       loading: false,
       error: null
     },
@@ -36,6 +37,7 @@ const fetchShifts = createAsyncThunk('shifts/fetchShifts', async () => {
         [fetchShifts.fulfilled]: (state, action) => {
           state.loading = false;
           state.items = action.payload;
+          state.bookedShifts = action.payload.filter(shift => shift.booked);
         },
       [fetchShifts.rejected]:(state,action)=>{
         state.loading=false;
