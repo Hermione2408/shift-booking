@@ -8,7 +8,16 @@
 
 .timeRange {
     font-size: 16px;
-/* Continue the styling based on your needs */
+    color: #4F6C92;
+}
+.city{
+    color: #a4b8d3;
+    font-size: 14px;
+}
+
+.timeAndCityContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 .bookedLabel {
