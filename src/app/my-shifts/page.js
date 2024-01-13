@@ -5,10 +5,10 @@ import { fetchShifts } from '../../../store/shiftSlice';
 
 const MyShifts = () => {
     const dispatch = useDispatch();
-    const shifts = useSelector(state => state.shifts.items);
     const loading = useSelector(state => state.shifts.loading);
     const error = useSelector(state => state.shifts.error);
-
+    const bookedShifts = useSelector(state => state.shifts.bookedShifts)
+    
     useEffect(() => {
         dispatch(fetchShifts());
     }, [dispatch]);
@@ -20,12 +20,11 @@ const MyShifts = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
     return (
         <div>
             <h1>Shifts</h1>
             <ul>
-                {shifts.map(shift => (
+                {bookedShifts.map(shift => (
                     <li key={shift.id}>
                         {shift.area} - {new Date(shift.startTime).toLocaleString()} to {new Date(shift.endTime).toLocaleString()}
                     </li>
