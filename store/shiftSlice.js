@@ -11,9 +11,16 @@ export const fetchShift = createAsyncThunk('shifts/fetchShift', async (id) => {
     return response.json();
   });
   
-export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
-    const response = await fetch(`http://127.0.0.1:8080/shifts/${id}/book`, { method: 'POST' });
-    return response.json();
+  export const bookShift = createAsyncThunk('shifts/bookShift', async (id, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8080/shifts/${id}/book`, { method: 'POST' });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   });
   
  export const cancelShift = createAsyncThunk('shifts/cancelShift', async (id) => {
@@ -80,6 +87,8 @@ export const bookShift = createAsyncThunk('shifts/bookShift', async (id) => {
         },
         [bookShift.fulfilled]: (state) => {
           state.bookingloading = false;
+          state.items = state.items.map(shift => 
+            shift.id === action.payload.id ? { ...shift, booked: true } : shift);
         },
         [bookShift.rejected]: (state, action) => {
           state.bookingloading = false;
