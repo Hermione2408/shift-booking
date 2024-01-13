@@ -4,7 +4,7 @@ import { bookShift, cancelShift,fetchShifts } from "../../../store/shiftSlice";
 import { useDispatch,useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
 
-const BookingRow = ({ data,showBookedText,isOverLapping,isStarted }) => {
+const BookingRow = ({ data,showBookedText,isOverLapping,isStarted,isPast }) => {
     const [bookingInProgress,setBookingInProgress]=useState(false)
     const [cancelInProgress,setCancelInProgress]=useState(false)
 
@@ -29,16 +29,31 @@ const BookingRow = ({ data,showBookedText,isOverLapping,isStarted }) => {
             setBookingInProgress(false)
         dispatch(fetchShifts())
     }
-    console.log(isOverLapping,"SSSS")
-
+    console.log(isPast,"Iam passed",data)
 
     return (
-        <div className={s.rowContainer}>
+        <div className={`${s.rowContainer} ${isPast ? s.pastShift : ''}`}>
             <span className={s.timeRange}> {isOverLapping}{`${startTime} - ${endTime}`}</span>
             <div>
              {showBookedText && data.booked && <span className={`${s.infotext} ${s.booked}`}>Booked</span>}
              {!data.booked && isOverLapping && <span className={`${s.infotext} ${s.overlap}`}>Overlapping</span>}
-             {(data.booked==false)? <button className={`${s.bookedLabel} ${isOverLapping ? s.disabledBtn:""}`} onClick={handleBook}>{bookingInProgress?<CircularProgress color="success" size={20} />:"Book"}</button>: <button className={`${s.cancelButton} ${isStarted ? s.disabledBtn:""}`} onClick={handleCancel}>{cancelInProgress ? <CircularProgress color="secondary" size={20} /> :"Cancel"}</button>}
+             {data.booked === false ? (
+                    <button 
+                        className={`${s.bookedLabel} ${isOverLapping || isPast ? s.disabledBtn : ""}`} 
+                        onClick={handleBook}
+                        disabled={bookingInProgress || isOverLapping || isPast}
+                    >
+                        {bookingInProgress ? <CircularProgress color="success" size={20} /> : "Book"}
+                    </button>
+                ) : (
+                    <button 
+                        className={`${s.cancelButton} ${isStarted || isPast ? s.disabledBtn : ""}`} 
+                        onClick={handleCancel}
+                        disabled={cancelInProgress || isStarted || isPast}
+                    >
+                        {cancelInProgress ? <CircularProgress color="secondary" size={20} /> : "Cancel"}
+                    </button>
+                )}
             </div>
         </div>
     );

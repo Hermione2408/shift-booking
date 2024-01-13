@@ -49,7 +49,6 @@ const AvailableShifts=()=>{
             setSelectedCity(cities[0])
         }
     },[allShifts])
-    if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     console.log(allShifts)
     console.log(bookedShifts) 
@@ -63,7 +62,7 @@ const AvailableShifts=()=>{
             {cities && cities.map((city,index)=>{
                 return(
                     <div onClick={()=>setSelectedCity(city)} key={index} className={`${s.city} ${selectedCity==city ? s.activeCity : ''}`}>
-                        {city}
+                        {city} {`(${groupedData?.[city]?.length ?? 0})`}
                     </div>
                 )
             })}
@@ -76,7 +75,7 @@ const AvailableShifts=()=>{
                         {dataToRender[category] && dataToRender[category].length >0 &&<div className={s.dayLabel} key={category}>{category}</div>}
                         {
                             dataToRender[category] && dataToRender[category].length >0 && dataToRender[category].map((booking)=>{
-                                return(<BookingRow data={booking} showBookedText={true} isOverLapping={checkOverLapping(booking)} isStarted={checkIfStarted(booking)} />)
+                                return(<BookingRow data={booking} showBookedText={true} isOverLapping={checkOverLapping(booking)} isStarted={checkIfStarted(booking)}  isPast={booking.isPast}/>)
                             })
                         }
                         </div>
